@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sahil Weds Aparna — Royal Wedding Invitation</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700;800;900&family=Great+Vibes&family=Alex+Brush&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Yatra+One&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              50: '#FDFBF7',
+              100: '#FBF5E5',
+              200: '#F3E5BF',
+              300: '#E4CD8E',
+              400: '#CCA855',
+              500: '#B68B2A',
+              600: '#946E18',
+              700: '#73530E',
+              800: '#543B08'
+            },
+            royal: {
+              cream: '#FAF6EE',
+              card: '#FFFDF9',
+              maroon: '#4A121A',
+              crimson: '#6B1424',
+              kashmiri: '#3A0E18',
+              sage: '#4A6B53',
+              dark: '#1B1716'
+            }
+          },
+          fontFamily: {
+            cinzel: ['Cinzel', 'serif'],
+            cinzeldec: ['"Cinzel Decorative"', 'serif'],
+            script: ['"Great Vibes"', 'cursive'],
+            brush: ['"Alex Brush"', 'cursive'],
+            playfair: ['"Playfair Display"', 'serif'],
+            yatra: ['"Yatra One"', 'cursive'],
+            sans: ['Montserrat', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .card-texture {
+      background: radial-gradient(circle at 50% 15%, #FFFFFF 0%, #FDFBF7 55%, #F7F1E1 100%);
+      box-shadow: 0 20px 50px -15px rgba(115, 83, 14, 0.18), 0 0 0 1px rgba(204, 168, 85, 0.35);
+    }
+
+    .gold-foil-border {
+      border: 2px solid #C5A059;
+      position: relative;
+    }
+
+    .gold-foil-border::after {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px dashed rgba(182, 139, 42, 0.45);
+      pointer-events: none;
+      border-radius: inherit;
+    }
+
+    /* Open Wedding Invitation Reference Pill Button Styles */
+    .theme-open-btn {
+      background-color: #193828;
+      border: 2px solid #C5A059;
+      box-shadow: 0 12px 28px -6px rgba(25, 56, 40, 0.45), 0 0 0 1px rgba(197, 160, 89, 0.3);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .theme-open-btn:hover {
+      background-color: #122a1e;
+      border-color: #dfba72;
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 16px 32px -6px rgba(25, 56, 40, 0.55), 0 0 15px rgba(197, 160, 89, 0.4);
+    }
+
+    .theme-icon-circle {
+      border: 1.5px solid #C5A059;
+      color: #C5A059;
+      background: transparent;
+    }
+
+    @keyframes royal-pulse {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.6); }
+      70% { transform: scale(1.02); box-shadow: 0 0 0 14px rgba(197, 160, 89, 0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+    }
+    
+    .pulse-seal {
+      animation: royal-pulse 2.4s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    }
+
+    .perspective-envelope {
+      perspective: 1600px;
+    }
+
+    .envelope-box {
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+    }
+
+    .logo-frame {
+      box-shadow: 0 15px 35px -10px rgba(74, 107, 83, 0.25), 0 0 0 4px #FDFBF7, 0 0 0 6px #C5A059;
+    }
+
+    #ambient-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 35;
+    }
+  </style>
+</head>
+
+<body class="bg-royal-cream text-stone-800 font-sans antialiased overflow-x-hidden relative selection:bg-gold-200 selection:text-royal-maroon">
+
+  <!-- Custom Background Music Audio Tag -->
+  <audio id="weddingAudio" loop preload="auto">
+    <source src="weddingaudio.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Falling Shimmering Golden & Rose Hearts Canvas -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Floating Audio & Hearts Animation Controls -->
+  <aside class="fixed bottom-4 right-4 z-50 flex items-center space-x-3 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-full border border-gold-400/60 shadow-2xl">
+    <button id="audioToggleBtn" title="Play / Pause Wedding Song" class="text-gold-700 hover:text-gold-600 transition-all flex items-center space-x-2 text-xs font-cinzel font-bold tracking-wider uppercase cursor-pointer">
+      <i id="audioIcon" class="fa-solid fa-circle-play text-base"></i>
+      <span id="audioText">Music: Off</span>
+    </button>
+
+    <div class="h-4 w-[1px] bg-gold-300"></div>
+    
+    <button id="heartToggleBtn" title="Toggle Floating Hearts Animation" class="text-stone-700 hover:text-royal-crimson transition-all text-xs font-cinzel flex items-center space-x-1.5 font-semibold cursor-pointer">
+      <i class="fa-solid fa-heart text-rose-500"></i>
+      <span id="heartText">Hearts</span>
+    </button>
+  </aside>
+
+  <!-- Interactive 3D Opening Wax Seal Envelope Overlay -->
+  <div id="envelope-overlay" class="fixed inset-0 z-50 bg-[#161211]/95 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-1000">
+    <div class="perspective-envelope w-full max-w-lg">
+      <div id="envelope-container" class="envelope-box relative bg-royal-card rounded-3xl p-7 sm:p-10 border-2 border-gold-400 shadow-2xl text-center overflow-hidden">
+        
+        <div class="flex items-center justify-center space-x-2 mb-2">
+          <span class="h-[1px] w-12 bg-gold-400"></span>
+          <i class="fa-solid fa-om text-gold-600 text-lg"></i>
+          <span class="h-[1px] w-12 bg-gold-400"></span>
+        </div>
+
+        <p class="font-yatra text-base text-royal-crimson">॥ ॐ श्री गणेशाय नमः ॥</p>
+        <p class="font-cinzel text-[11px] uppercase tracking-[0.3em] text-gold-700 font-bold mt-1">Wedding Invitation</p>
+
+        <!-- Centered Crest Preview in Envelope -->
+        <div class="my-5 py-5 px-4 bg-gold-50/70 border border-gold-300/80 rounded-2xl relative flex flex-col items-center justify-center text-center">
+          <div class="w-24 h-24 mb-3 rounded-2xl overflow-hidden border-2 border-gold-400 shadow-md bg-white mx-auto flex items-center justify-center">
+            <img id="introLogoImg" src="WhatsApp Image 2026-09-28 at 10.04.03 PM.jpeg" alt="Sahil & Aparna Wedding Crest" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='SahApr.jpeg';">
+          </div>
+
+          <h3 class="font-brush text-5xl sm:text-6xl text-royal-maroon font-normal leading-tight">
+            Sahil <span class="font-cinzel text-xl text-gold-600 block my-1">weds</span> Aparna
+          </h3>
+          <p class="font-cinzel text-xs font-semibold uppercase tracking-widest text-stone-700 mt-2">
+            25th November 2026
+          </p>
+        </div>
+
+        <!-- Open Wedding Invitation Pill Button -->
+        <div class="mt-6 flex flex-col items-center justify-center">
+          <button 
+            id="openSealBtn" 
+            class="pulse-seal theme-open-btn group inline-flex items-center justify-center space-x-3.5 px-8 sm:px-10 py-3.5 rounded-full text-white cursor-pointer active:scale-95"
+          >
+            <!-- Gold Outline Circle with Envelope -->
+            <span class="theme-icon-circle w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0">
+              <i class="fa-solid fa-envelope text-[11px]"></i>
+            </span>
+
+            <!-- Typography & Letter Spacing -->
+            <span class="font-cinzel text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#FAF6EE] uppercase whitespace-nowrap">
+              Open Wedding Invitation
+            </span>
+          </button>
+          </span>
+        </div>
+
+        <p class="text-[11px] font-cinzel text-stone-500 tracking-wider mt-4">
+          A Cordial Invitation From Mattoo Parivaar
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-4xl mx-auto px-4 py-8 sm:py-14 space-y-14">
+
+    <!-- ==========================================
+         CARD SECTION 1: THE COVER CARD
+         ========================================== -->
+    <article id="cover-card" class="card-texture gold-foil-border rounded-3xl p-6 sm:p-12 relative overflow-hidden shadow-2xl">
+      
+      <!-- Top Section -->
+      <div class="text-center border-b border-gold-300/70 pb-6">
+        <h2 class="font-brush text-3xl sm:text-4xl md:text-3xl text-royal-maroon leading-tight">
+          You're cordially invited to the Marriage Ceremony of
+        </h2>
+        <div class="flex items-center justify-center space-x-3 text-gold-500 mt-2">
+          <span class="h-[1px] w-16 bg-gold-400"></span>
+          <i class="fa-solid fa-spa text-base"></i>
+          <span class="h-[1px] w-16 bg-gold-400"></span>
+        </div>
+      </div>
+
+      <!-- MAIN LOGO SECTION: CENTERED (SMALL SIZE) -->
+      <div class="py-10 flex flex-col items-center justify-center text-center">
+        
+        <div class="relative group my-2 flex flex-col items-center justify-center w-full">
+          <div class="w-32 sm:w-48 md:w-32 mx-auto rounded-3xl overflow-hidden logo-frame bg-[#FAF6EE] p-2 transition-transform duration-500 group-hover:scale-[1.02] flex items-center justify-center">
+            <img 
+              id="mainCoupleLogo" 
+              src="WhatsApp Image 2026-09-28 at 10.04.03 PM.jpeg" 
+              alt="Aparna & Sahil Wedding Monogram Logo" 
+              class="w-full h-auto object-cover rounded-2xl block shadow-inner mx-auto"
+              onerror="this.onerror=null; this.src='Logowedding.jpeg';"
+            />
+          </div>
+        </div>
+
+        <!-- Typography Headline -->
+        <div class="mt-8 text-center">
+          <h1 class="font-brush text-6xl sm:text-7xl md:text-8xl text-royal-maroon tracking-wide">
+            Sahil
+          </h1>
+          <div class="my-1">
+            <span class="font-cinzel text-xl sm:text-2xl text-gold-600 font-semibold tracking-widest uppercase">with</span>
+          </div>
+          <h2 class="font-brush text-6xl sm:text-7xl md:text-8xl text-royal-maroon tracking-wide">
+            Aparna
+          </h2>
+        </div>
+      </div>
+
+      <!-- Footer of Cover Card -->
+      <div class="pt-8 border-t border-gold-300/80 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+        <div>
+          <span class="font-cinzel text-xs uppercase tracking-widest text-stone-500 font-bold block mb-1">
+            A cordial Invitation from :
+          </span>
+          <h4 class="font-playfair text-base sm:text-lg font-bold text-royal-maroon">
+            Smt. Lovely Mattoo &amp; Sh. Satish Mattoo
+          </h4>
+          <p class="text-xs text-stone-700 mt-1 font-sans">
+            Flat No. 8, Block L, Buta Nagar, Lower Roop Nagar, Jammu
+          </p>
+          <p class="text-xs text-stone-800 font-bold mt-2 font-sans">
+            <i class="fa-solid fa-phone text-gold-600 mr-1.5"></i>
+            <a href="tel:9419110835" class="hover:text-gold-600 transition-colors">9419110835</a> / 
+            <a href="tel:7006909650" class="hover:text-gold-600 transition-colors">7006909650</a>
+          </p>
+        </div>
+
+        <div class="flex justify-center md:justify-end text-gold-600 opacity-90">
+          <div class="w-16 h-16 rounded-full border border-gold-400 bg-gold-50/70 flex items-center justify-center shadow-xs">
+            <i class="fa-solid fa-hands-praying text-2xl text-gold-700"></i>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ==========================================
+         CARD SECTION 2: SACRED INVOCATIONS & INVITATION
+         ========================================== -->
+    <article id="wedding-card" class="card-texture gold-foil-border rounded-3xl p-6 sm:p-12 md:p-16 relative overflow-hidden shadow-2xl">
+      
+      <div class="flex items-center justify-between max-w-md mx-auto mb-4">
+        <div class="w-12 h-12 text-gold-600">
+          <svg viewBox="0 0 100 100" fill="currentColor">
+            <path d="M50 10 L60 30 L40 30 Z M35 32 L65 32 L60 40 L40 40 Z M35 42 C30 55 30 70 40 85 L60 85 C70 70 70 55 65 42 Z"/>
+          </svg>
+        </div>
+
+        <div class="w-20 h-20 text-gold-600 flex items-center justify-center">
+          <svg class="w-16 h-16" viewBox="0 0 100 100" fill="currentColor">
+            <path d="M50 8 C42 8 36 14 36 22 C36 26 38 29 40 32 C35 34 31 38 31 44 C31 49 34 53 38 55 C37 59 36 63 36 68 C36 78 44 86 54 86 C64 86 72 78 72 68 C72 62 69 57 65 53 C67 51 68 47 68 44 C68 37 63 32 57 30 C58 28 59 25 59 22 C59 14 53 8 50 8 Z M50 14 C54 14 57 17 57 22 C57 24 56 26 55 27 C53 26 51 26 50 26 C48 26 46 26 44 27 C43 26 42 24 42 22 C42 17 45 14 50 14 Z M48 34 C49 34 50 34 51 34 C58 34 62 38 62 44 C62 48 59 52 55 53 C52 50 47 50 44 53 C40 52 37 48 37 44 C37 38 41 34 48 34 Z M44 60 C46 58 53 58 55 60 C62 62 65 67 65 72 C65 78 59 82 53 82 C46 82 41 77 41 71 C41 66 43 62 44 60 Z"/>
+          </svg>
+        </div>
+
+        <div class="w-12 h-12 text-gold-600">
+          <svg viewBox="0 0 100 100" fill="currentColor">
+            <path d="M50 10 L60 30 L40 30 Z M35 32 L65 32 L60 40 L40 40 Z M35 42 C30 55 30 70 40 85 L60 85 C70 70 70 55 65 42 Z"/>
+          </svg>
+        </div>
+      </div>
+
+      <header class="text-center space-y-3 mb-8">
+        <h2 class="font-yatra text-2xl sm:text-3xl text-royal-crimson font-normal">
+          ॥ ॐ श्री गणेशाय नमः ॥
+        </h2>
+
+        <div class="font-yatra text-stone-800 text-sm sm:text-base leading-relaxed max-w-xl mx-auto space-y-1">
+          <p>वक्रतुण्ड महाकाय सूर्यकोटि समप्रभः ।</p>
+          <p>निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥</p>
+        </div>
+
+        <div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto my-4"></div>
+
+        <p class="font-playfair italic text-xs sm:text-sm text-stone-700">
+          With the grace of God and the heavenly blessings of our revered parents
+        </p>
+
+        <div class="space-y-3 text-stone-800 font-playfair text-xs sm:text-sm pt-2">
+          <div>
+            <p class="font-bold text-royal-maroon text-sm sm:text-base">
+              Late Smt. Prabhawati Mattoo &amp; Late Sh. Prakash Ram Mattoo
+            </p>
+            <p class="text-stone-500 italic text-xs">
+              of Hardutoru, Anantnag, Kashmir
+            </p>
+          </div>
+
+          <p class="font-script text-xl text-gold-600">And</p>
+
+          <div>
+            <p class="font-bold text-royal-maroon text-sm sm:text-base">
+              Late Smt. Kanta Raina &amp; Late Sh. Bansi Lal Raina
+            </p>
+            <p class="text-stone-500 italic text-xs">
+              of Irkumu Kokarnag, Anantnag, Kashmir
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <section class="text-center my-8 py-6 border-y border-gold-300/80 bg-gold-50/50 rounded-2xl">
+        <h3 class="font-playfair text-lg sm:text-2xl font-bold text-royal-maroon">
+          Smt. Indra Jee Mattoo &amp; Sh. Girdhari Lal Mattoo
+        </h3>
+        <p class="font-playfair italic text-stone-700 text-xs sm:text-sm mt-2 max-w-xl mx-auto px-4">
+          cordially solicit your gracious presence on the auspicious occasion of the Marriage Ceremony of their grand son
+        </p>
+      </section>
+
+      <section class="text-center my-10 space-y-6">
+        <div>
+          <h2 class="font-brush text-6xl sm:text-7xl md:text-8xl text-royal-maroon">
+            Sahil
+          </h2>
+          <p class="font-playfair text-xs sm:text-sm text-stone-700 italic font-semibold mt-1">
+            (S/o Smt. Lovely Mattoo &amp; Sh. Satish Mattoo)
+          </p>
+          <p class="font-cinzel text-xs text-stone-500 tracking-wider">
+            of Hardutoru Anantnag, Kmr.
+          </p>
+        </div>
+
+        <div class="flex items-center justify-center space-x-4">
+          <span class="h-[1px] w-14 sm:w-24 bg-gold-400"></span>
+          <span class="font-brush text-3xl sm:text-4xl text-gold-600">Weds</span>
+          <span class="h-[1px] w-14 sm:w-24 bg-gold-400"></span>
+        </div>
+
+        <div>
+          <h2 class="font-brush text-6xl sm:text-7xl md:text-8xl text-royal-maroon">
+            Aparna
+          </h2>
+          <p class="font-playfair text-xs sm:text-sm text-stone-700 italic font-semibold mt-1">
+            (D/o Smt. Ratni Razdan &amp; Sh. Sandesh Razdan)
+          </p>
+          <p class="font-cinzel text-xs text-stone-500 tracking-wider">
+            of Frisal, Kulgam, Kmr.
+          </p>
+        </div>
+
+        <div class="pt-6 flex justify-center">
+          <div class="inline-flex items-center space-x-3 bg-white px-5 py-2.5 rounded-full border border-gold-300 shadow-sm">
+            <i class="fa-solid fa-heart text-royal-crimson text-sm"></i>
+            <i class="fa-solid fa-heart text-royal-crimson text-sm"></i>
+          </div>
+        </div>
+      </section>
+
+    </article>
+
+    <!-- ==========================================
+         CARD SECTION 3: GOLDEN MOMENTS
+         ========================================== -->
+    <section id="golden-moments" class="space-y-8">
+      
+      <div class="text-center">
+        <div class="flex items-center justify-center space-x-3 mb-2">
+          <i class="fa-solid fa-drum text-gold-600"></i>
+          <span class="font-cinzel text-xs uppercase tracking-[0.3em] text-gold-700 font-bold">Sacred Itinerary</span>
+          <i class="fa-solid fa-drum text-gold-600"></i>
+        </div>
+        <h2 class="font-playfair italic text-4xl sm:text-5xl font-bold text-royal-maroon">
+          Golden Moments
+        </h2>
+        <div class="w-24 h-0.5 bg-gold-400 mx-auto mt-3"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- 1. SAAT MANZ -->
+        <div class="card-texture p-6 sm:p-8 rounded-3xl border border-gold-300 shadow-lg flex flex-col justify-between hover:shadow-2xl transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-cinzel font-bold text-gold-700 tracking-widest uppercase">Ritual 01</span>
+              <span class="text-[11px] bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-semibold">Evening</span>
+            </div>
+            
+            <h3 class="font-playfair text-2xl font-bold text-stone-900 mb-2">
+              Saat Manz
+            </h3>
+            
+            <p class="text-stone-700 text-xs sm:text-sm font-semibold mb-1">
+              <i class="fa-regular fa-calendar text-gold-600 mr-2"></i>Sunday, 22<sup>nd</sup> Nov. 2026
+            </p>
+            <p class="text-stone-700 text-xs sm:text-sm font-semibold mb-4">
+              <i class="fa-regular fa-clock text-gold-600 mr-2"></i>05:00 P.M.
+            </p>
+
+            <div class="bg-white/90 p-4 rounded-xl border border-stone-200 mb-5">
+              <p class="text-[10px] uppercase tracking-wider text-stone-500 font-bold mb-1">Where (Venue):</p>
+              <p class="text-sm font-bold text-royal-maroon">H.No. 123, Sec. 6</p>
+              <p class="text-xs text-stone-700">Near Sai Baba Mandir, Lower Roop Nagar, Jammu</p>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-gold-200">
+            <button onclick="addToCalendar('Saat Manz: Sahil & Aparna', '20261122T170000', '20261122T210000', 'H.No. 123, Sec. 6, Near Sai Baba Mandir, Lower Roop Nagar, Jammu', 'Auspicious Saat Manz ceremony for Sahil and Aparna.')" class="w-full py-2.5 px-3 rounded-xl bg-gold-100 hover:bg-gold-200 text-gold-800 font-cinzel text-[11px] font-bold uppercase tracking-wider text-center transition-colors cursor-pointer">
+              <i class="fa-regular fa-calendar-plus mr-1"></i> Add Calendar
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. DEVGON -->
+        <div class="card-texture p-6 sm:p-8 rounded-3xl border border-gold-300 shadow-lg flex flex-col justify-between hover:shadow-2xl transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-cinzel font-bold text-gold-700 tracking-widest uppercase">Ritual 02</span>
+              <span class="text-[11px] bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-semibold">Morning</span>
+            </div>
+
+            <h3 class="font-playfair text-2xl font-bold text-stone-900 mb-2">
+              Devgon
+            </h3>
+
+            <p class="text-stone-700 text-xs sm:text-sm font-semibold mb-1">
+              <i class="fa-regular fa-calendar text-gold-600 mr-2"></i>Monday, 23<sup>rd</sup> Nov. 2026
+            </p>
+            <p class="text-stone-700 text-xs sm:text-sm font-semibold mb-4">
+              <i class="fa-regular fa-clock text-gold-600 mr-2"></i>10:00 A.M.
+            </p>
+
+            <div class="bg-white/90 p-4 rounded-xl border border-stone-200 mb-5">
+              <p class="text-[10px] uppercase tracking-wider text-stone-500 font-bold mb-1">Where (Venue):</p>
+              <p class="text-sm font-bold text-royal-maroon">H.No. 123, Sec. 6</p>
+              <p class="text-xs text-stone-700">Near Sai Baba Mandir, Lower Roop Nagar, Jammu</p>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-gold-200">
+            <button onclick="addToCalendar('Devgon Ritual: Sahil & Aparna', '20261123T100000', '20261123T140000', 'H.No. 123, Sec. 6, Near Sai Baba Mandir, Lower Roop Nagar, Jammu', 'Traditional Devgon ritual of Sahil.')" class="w-full py-2.5 px-3 rounded-xl bg-gold-100 hover:bg-gold-200 text-gold-800 font-cinzel text-[11px] font-bold uppercase tracking-wider text-center transition-colors cursor-pointer">
+              <i class="fa-regular fa-calendar-plus mr-1"></i> Add Calendar
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. MEHANDIRAAT & DINNER -->
+        <div class="card-texture p-6 sm:p-8 rounded-3xl border border-gold-300 shadow-lg flex flex-col justify-between hover:shadow-2xl transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-cinzel font-bold text-gold-700 tracking-widest uppercase">Ritual 03</span>
+              <span class="text-[11px] bg-red-100 text-red-800 px-3 py-1 rounded-full font-semibold">Night &amp; Dinner</span>
+            </div>
+
+            <h3 class="font-playfair text-2xl font-bold text-stone-900 mb-2">
+              Mehandiraat &amp; Dinner
+            </h3>
+
+            <p class="text-stone-700 text-xs sm:text-sm font-semibold mb-1">
+              <i class="fa-regular fa-calendar text-gold-600 mr-2"></i>Monday, 23<sup>rd</sup> Nov. 2026
+            </p>
+            <p class="text-stone-700 text-xs sm:text-sm font-semibold mb-4">
+              <i class="fa-regular fa-clock text-gold-600 mr-2"></i>07:00 P.M. Onwards
+            </p>
+
+            <div class="bg-white/90 p-4 rounded-xl border border-stone-200 mb-5">
+              <p class="text-[10px] uppercase tracking-wider text-stone-500 font-bold mb-1">Where (Venue):</p>
+              <p class="text-sm font-bold text-royal-maroon">Vintage Court</p>
+              <p class="text-xs text-stone-700">Sec. 1, Chib Mohalla, Durga Nagar, Jammu</p>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-gold-200">
+            <button onclick="addToCalendar('Mehandiraat & Dinner: Sahil & Aparna', '20261123T190000', '20261123T235900', 'Vintage Court, Sec. 1, Chib Mohalla, Durga Nagar, Jammu', 'Celebration of Mehandiraat and Dinner.')" class="w-full py-2.5 px-3 rounded-xl bg-gold-100 hover:bg-gold-200 text-gold-800 font-cinzel text-[11px] font-bold uppercase tracking-wider text-center transition-colors cursor-pointer">
+              <i class="fa-regular fa-calendar-plus mr-1"></i> Add Calendar
+            </button>
+          </div>
+        </div>
+
+        <!-- 4. DEPARTURE OF BARAT -->
+        <div class="card-texture p-6 sm:p-8 rounded-3xl border-2 border-gold-500 shadow-2xl relative flex flex-col justify-between">
+          <div class="absolute -top-3.5 right-6 bg-gradient-to-r from-gold-600 to-amber-500 text-white text-[11px] font-cinzel uppercase tracking-widest px-4 py-1 rounded-full shadow">
+            The Wedding Day
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-cinzel font-bold text-gold-700 tracking-widest uppercase">Ritual 04</span>
+              <span class="text-[11px] bg-red-100 text-red-800 px-3 py-1 rounded-full font-semibold">Morning</span>
+            </div>
+
+            <h3 class="font-playfair text-2xl font-bold text-royal-maroon mb-2">
+              Departure of Barat
+            </h3>
+
+            <p class="text-stone-800 text-xs sm:text-sm font-semibold mb-1">
+              <i class="fa-regular fa-calendar text-gold-600 mr-2"></i>Wednesday, 25<sup>th</sup> Nov. 2026
+            </p>
+            <p class="text-stone-800 text-xs sm:text-sm font-semibold mb-4">
+              <i class="fa-regular fa-clock text-gold-600 mr-2"></i>09:00 A.M.
+            </p>
+
+            <div class="space-y-2.5 mb-5">
+              <div class="bg-white p-3.5 rounded-xl border border-stone-200 flex items-start space-x-3 shadow-xs">
+                <div class="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-gold-700 flex-shrink-0 mt-0.5">
+                  <i class="fa-solid fa-house text-xs"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] font-cinzel uppercase tracking-wider text-stone-500 font-bold block">
+                    Procession Assembles At
+                  </span>
+                  <p class="text-xs font-bold text-stone-900 leading-snug">
+                    H.No. 123, Sec. 6, Near Sai Baba Mandir
+                  </p>
+                  <p class="text-[11px] text-stone-600">Lower Roop Nagar, Jammu</p>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-center space-x-2 py-0.5 text-gold-600">
+                <span class="h-[1px] w-12 bg-gold-300"></span>
+                <i class="fa-solid fa-arrow-down text-xs animate-bounce"></i>
+                <span class="text-[10px] font-cinzel font-semibold tracking-wider text-gold-700 uppercase">Procession Towards Venue</span>
+                <span class="h-[1px] w-12 bg-gold-300"></span>
+              </div>
+
+              <div class="bg-gradient-to-r from-gold-50/90 to-white p-3.5 rounded-xl border border-gold-400 flex items-start space-x-3 shadow-xs">
+                <div class="w-8 h-8 rounded-lg bg-royal-maroon text-white flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
+                  <i class="fa-solid fa-champagne-glasses text-xs"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] font-cinzel uppercase tracking-wider text-gold-800 font-bold block">
+                    Grand Wedding Venue
+                  </span>
+                  <p class="text-xs font-bold text-royal-maroon leading-snug">
+                    Amaltaz Banquet
+                  </p>
+                  <p class="text-[11px] text-stone-700">Akhnoor Road, Muthi, Jammu</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-gold-300">
+            <button onclick="addToCalendar('Departure of Barat: Sahil & Aparna', '20261125T090000', '20261125T160000', 'Amaltaz Banquet, Akhnoor Road, Muthi Jammu', 'Barat procession from H.No. 123 Lower Roop Nagar to Amaltaz Banquet.')" class="w-full py-2.5 px-3 rounded-xl bg-gold-600 text-white hover:bg-gold-700 font-cinzel text-[11px] font-bold uppercase tracking-wider text-center shadow transition-colors cursor-pointer">
+              <i class="fa-regular fa-calendar-plus mr-1"></i> Add Calendar
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         CARD SECTION 4: RSVP DIRECTORY & BEST COMPLIMENTS
+         ========================================== -->
+    <section id="rsvp" class="card-texture gold-foil-border rounded-3xl p-6 sm:p-12 shadow-2xl">
+      
+      <div class="max-w-2xl mx-auto bg-white/90 p-6 sm:p-8 rounded-2xl border border-gold-200 space-y-5">
+        <div class="border-b border-stone-200 pb-3 text-center">
+          <span class="font-cinzel text-sm uppercase tracking-widest text-gold-700 font-bold">R. S. V. P.</span>
+          <p class="text-xs text-stone-500 font-playfair italic mt-0.5">Please touch any number to call directly</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-semibold">
+          <a href="tel:7006909650" class="p-3 rounded-xl bg-gold-50 hover:bg-gold-100 text-royal-maroon flex items-center space-x-2 transition-colors border border-gold-200">
+            <i class="fa-solid fa-phone text-gold-600 text-xs"></i>
+            <span>7006909650</span>
+          </a>
+          </a>
+          <a href="tel:9149894856" class="p-3 rounded-xl bg-gold-50 hover:bg-gold-100 text-royal-maroon flex items-center space-x-2 transition-colors border border-gold-200">
+            <i class="fa-solid fa-phone text-gold-600 text-xs"></i>
+            <span>9149894856</span>
+          </a>
+          <a href="tel:9682521544" class="p-3 rounded-xl bg-gold-50 hover:bg-gold-100 text-royal-maroon flex items-center space-x-2 transition-colors border border-gold-200">
+            <i class="fa-solid fa-phone text-gold-600 text-xs"></i>
+            <span>9682521544</span>
+          </a>
+        </div>
+        <div class="pt-4 border-t border-stone-200 text-center">
+          <p class="font-cinzel text-xs uppercase tracking-widest text-gold-700 font-bold">With Best Compliments From:</p>
+          <p class="font-playfair text-lg font-bold text-stone-900 mt-1">
+            Mattoo's and Raina's
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ROYAL FOOTER -->
+  <footer class="bg-royal-dark text-stone-300 pt-12 pb-10 border-t-2 border-gold-600 px-4 text-center">
+    <div class="max-w-4xl mx-auto space-y-3">
+      <p class="font-yatra text-gold-400 text-lg">॥ ॐ नमः शिवाय ॥</p>
+      <h3 class="font-brush text-4xl sm:text-5xl text-gold-300">Sahil &amp; Aparna</h3>
+      <p class="font-cinzel text-xs tracking-widest text-stone-400 uppercase">
+      </p>
+      <div class="pt-4 border-t border-stone-800 text-[11px] text-stone-500 font-cinzel tracking-wider">
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ==========================================================
+       1. ENVELOPE OPENING & AUTOPLAY MUSIC
+       ========================================================= */
+    const openSealBtn = document.getElementById('openSealBtn');
+    const envelopeOverlay = document.getElementById('envelope-overlay');
+    const envelopeContainer = document.getElementById('envelope-container');
+    const weddingAudio = document.getElementById('weddingAudio');
+
+    openSealBtn.addEventListener('click', () => {
+      playWeddingMusic();
+
+      envelopeContainer.style.transform = 'scale(1.06) translateY(-25px)';
+      setTimeout(() => {
+        envelopeOverlay.classList.add('opacity-0');
+        setTimeout(() => {
+          envelopeOverlay.style.display = 'none';
+        }, 900);
+      }, 600);
+    });
+
+    /* ==========================================================
+       2. CUSTOM WEDDING SONG CONTROLLER
+       ========================================================= */
+    const audioToggleBtn = document.getElementById('audioToggleBtn');
+    const audioIcon = document.getElementById('audioIcon');
+    const audioText = document.getElementById('audioText');
+
+    function playWeddingMusic() {
+      weddingAudio.play().then(() => {
+        audioIcon.className = "fa-solid fa-circle-pause text-base text-gold-500";
+        audioText.innerText = "Music: On";
+      }).catch(err => {
+        console.log("Audio waiting for user gesture or source:", err);
+      });
+    }
+
+    function pauseWeddingMusic() {
+      weddingAudio.pause();
+      audioIcon.className = "fa-solid fa-circle-play text-base";
+      audioText.innerText = "Music: Off";
+    }
+
+    audioToggleBtn.addEventListener('click', () => {
+      if (weddingAudio.paused) {
+        playWeddingMusic();
+      } else {
+        pauseWeddingMusic();
+      }
+    });
+
+    /* ==========================================================
+       3. AMBIENT FLOATING HEARTS & SHIMMER CANVAS ANIMATION
+       ========================================================= */
+    const canvas = document.getElementById('ambient-canvas');
+    const ctx = canvas.getContext('2d');
+    let isHeartsActive = true;
+    const hearts = [];
+    const totalHearts = 36;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class ShimmerHeart {
+      constructor() {
+        this.init();
+      }
+
+      init() {
+        this.x = Math.random() * canvas.width;
+        this.y = -20 - Math.random() * 50;
+        this.size = Math.random() * 9 + 7;
+        this.speedY = Math.random() * 1.1 + 0.6;
+        this.speedX = (Math.random() - 0.5) * 1.2;
+        this.swayAngle = Math.random() * Math.PI * 2;
+        this.swaySpeed = Math.random() * 0.03 + 0.015;
+        this.rotation = (Math.random() - 0.5) * 0.4;
+        this.opacity = Math.random() * 0.45 + 0.35;
+        
+        const colors = [
+          'rgba(212, 175, 55, ',
+          'rgba(224, 159, 168, ',
+          'rgba(182, 139, 42, ',
+          'rgba(190, 80, 100, '
+        ];
+        this.colorPrefix = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        this.y += this.speedY;
+        this.swayAngle += this.swaySpeed;
+        this.x += this.speedX + Math.sin(this.swayAngle) * 0.7;
+
+        if (this.y > canvas.height + 30 || this.x < -40 || this.x > canvas.width + 40) {
+          this.init();
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation + Math.sin(this.swayAngle) * 0.2);
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = this.colorPrefix + this.opacity + ')';
+
+        ctx.beginPath();
+        const topCurveHeight = this.size * 0.3;
+        ctx.moveTo(0, topCurveHeight);
+        
+        ctx.bezierCurveTo(
+          -this.size / 2, -topCurveHeight, 
+          -this.size, this.size / 3, 
+          0, this.size
+        );
+        ctx.bezierCurveTo(
+          this.size, this.size / 3, 
+          this.size / 2, -topCurveHeight, 
+          0, topCurveHeight
+        );
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.beginPath();
+        ctx.arc(-this.size * 0.25, topCurveHeight * 0.3, this.size * 0.1, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < totalHearts; i++) {
+      const h = new ShimmerHeart();
+      h.y = Math.random() * canvas.height;
+      hearts.push(h);
+    }
+
+    function renderHearts() {
+      if (isHeartsActive) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hearts.forEach(h => {
+          h.update();
+          h.draw();
+        });
+      }
+      requestAnimationFrame(renderHearts);
+    }
+    renderHearts();
+
+    const heartToggleBtn = document.getElementById('heartToggleBtn');
+    const heartText = document.getElementById('heartText');
+    heartToggleBtn.addEventListener('click', () => {
+      isHeartsActive = !isHeartsActive;
+      if (!isHeartsActive) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        heartText.innerText = "Paused";
+      } else {
+        heartText.innerText = "Hearts";
+      }
+    });
+
+    /* ==========================================================
+       4. ADD TO GOOGLE CALENDAR
+       ========================================================= */
+    function addToCalendar(title, startIso, endIso, location, description) {
+      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startIso}/${endIso}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
