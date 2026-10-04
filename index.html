@@ -405,6 +405,37 @@
     </article>
 
     <!-- ==========================================
+         WEDDING COUNTDOWN TIMER
+         ========================================== -->
+    <section id="countdown" class="card-texture rounded-3xl p-6 sm:p-10 border border-gold-300 text-center shadow-xl">
+      <span class="font-cinzel text-xs uppercase tracking-[0.3em] text-gold-700 font-bold block mb-1"></span>
+      <h3 class="font-playfair text-2xl sm:text-3xl text-stone-900 font-bold mb-6">Countdown to Marriage Celebrations</h3>
+
+      <div class="grid grid-cols-4 gap-3 sm:gap-6 max-w-xl mx-auto">
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gold-200 shadow-sm">
+          <span id="countdownDays" class="block font-cinzel text-2xl sm:text-4xl font-extrabold text-royal-maroon">00</span>
+          <span class="text-[10px] sm:text-xs uppercase font-cinzel tracking-wider text-stone-500 font-bold">Days</span>
+        </div>
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gold-200 shadow-sm">
+          <span id="countdownHours" class="block font-cinzel text-2xl sm:text-4xl font-extrabold text-royal-maroon">00</span>
+          <span class="text-[10px] sm:text-xs uppercase font-cinzel tracking-wider text-stone-500 font-bold">Hours</span>
+        </div>
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gold-200 shadow-sm">
+          <span id="countdownMins" class="block font-cinzel text-2xl sm:text-4xl font-extrabold text-royal-maroon">00</span>
+          <span class="text-[10px] sm:text-xs uppercase font-cinzel tracking-wider text-stone-500 font-bold">Mins</span>
+        </div>
+        <div class="bg-white p-4 sm:p-5 rounded-2xl border border-gold-200 shadow-sm">
+          <span id="countdownSecs" class="block font-cinzel text-2xl sm:text-4xl font-extrabold text-royal-maroon">00</span>
+          <span class="text-[10px] sm:text-xs uppercase font-cinzel tracking-wider text-stone-500 font-bold">Secs</span>
+        </div>
+      </div>
+
+      <p class="text-xs text-stone-600 mt-5 font-cinzel tracking-wider">
+        <i class="fa-solid fa-heart text-gold-600 mr-1.5"></i>Sunday, 22nd November 2026  <i class="fa-solid fa-heart text-gold-600 mr-1.5"> </i>
+      </p>
+    </section>
+
+    <!-- ==========================================
          CARD SECTION 3: GOLDEN MOMENTS
          ========================================== -->
     <section id="golden-moments" class="space-y-8">
@@ -423,7 +454,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <!-- 1. SAAT MANZ -->
+                <!-- 1. SAAT MANZ -->
         <div class="card-texture p-6 sm:p-8 rounded-3xl border border-gold-300 shadow-lg flex flex-col justify-between hover:shadow-2xl transition-all">
           <div>
             <div class="flex items-center justify-between mb-3">
@@ -449,10 +480,12 @@
             </div>
           </div>
 
-          <div class="pt-2 border-t border-gold-200">
-            <button onclick="addToCalendar('Saat Manz: Sahil & Aparna', '20261122T170000', '20261122T210000', 'H.No. 123, Sec. 6, Near Sai Baba Mandir, Lower Roop Nagar, Jammu', 'Auspicious Saat Manz ceremony for Sahil and Aparna.')" class="w-full py-2.5 px-3 rounded-xl bg-gold-100 hover:bg-gold-200 text-gold-800 font-cinzel text-[11px] font-bold uppercase tracking-wider text-center transition-colors cursor-pointer">
-              <i class="fa-regular fa-calendar-plus mr-1"></i> Add Calendar
+          <div class="grid grid-cols-2 gap-2 pt-2 border-t border-gold-200">
+          
             </button>
+            <a href="https://maps.app.goo.gl/K9dCjNZnEUhk3ubE8" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl border border-gold-400 hover:bg-white text-stone-800 font-cinzel text-[11px] font-bold uppercase tracking-wider text-center transition-colors">
+              <i class="fa-solid fa-location-dot text-gold-600 mr-1"></i> View Venue
+            </a>
           </div>
         </div>
 
@@ -482,119 +515,142 @@
             </div>
           </div>
 
-          <div class="pt-2 border-t border-gold-200">
-            <button onclick="addToCalendar('Devgon Ritual: Sahil & Aparna', '20261123T100000', '20261123T140000', 'H.No. 123, Sec. 6, Near Sai Baba Mandir, Lower Roop Nagar, Jammu', 'Traditional Devgon ritual of Sahil.')" class="w-full py-2.5 px-3 rounded-xl bg-gold-100 hover:bg-gold-200 text-gold-800 font-cinzel text-[11px] font-bold uppercase tracking-wider text-center transition-colors cursor-pointer">
-              <i class="fa-regular fa-calendar-plus mr-1"></i> Add Calendar
-            </button>
+           </button>
+            <a href="https://maps.app.goo.gl/K9dCjNZnEUhk3ubE8" target="_blank" rel="noopener noreferrer" class="py-2.5 px-3 rounded-xl border border-gold-400 hover:bg-white text-stone-800 font-cinzel text-[11px] font-bold uppercase tracking-wider text-center transition-colors">
+              <i class="fa-solid fa-location-dot text-gold-600 mr-1"></i> View Venue
+            </a>
           </div>
         </div>
 
         <!-- 3. MEHANDIRAAT & DINNER -->
-        <div class="card-texture p-6 sm:p-8 rounded-3xl border border-gold-300 shadow-lg flex flex-col justify-between hover:shadow-2xl transition-all">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-xs font-cinzel font-bold text-gold-700 tracking-widest uppercase">Ritual 03</span>
-              <span class="text-[11px] bg-red-100 text-red-800 px-3 py-1 rounded-full font-semibold">Night &amp; Dinner</span>
-            </div>
+<div class="card-texture p-6 sm:p-8 rounded-3xl border border-gold-300 shadow-lg flex flex-col justify-between hover:shadow-2xl transition-all h-full">
+  <div>
+    <!-- Ritual Header -->
+    <div class="flex items-center justify-between mb-3">
+      <span class="text-xs font-cinzel font-bold text-gold-700 tracking-widest uppercase">Ritual 03</span>
+      <span class="text-[11px] bg-red-100 text-red-800 px-3 py-1 rounded-full font-semibold">Night &amp; Dinner</span>
+    </div>
 
-            <h3 class="font-playfair text-2xl font-bold text-stone-900 mb-2">
-              Mehandiraat &amp; Dinner
-            </h3>
+    <!-- Event Title -->
+    <h3 class="font-playfair text-2xl font-bold text-stone-900 mb-2">
+      Mehandiraat &amp; Dinner
+    </h3>
 
-            <p class="text-stone-700 text-xs sm:text-sm font-semibold mb-1">
-              <i class="fa-regular fa-calendar text-gold-600 mr-2"></i>Monday, 23<sup>rd</sup> Nov. 2026
-            </p>
-            <p class="text-stone-700 text-xs sm:text-sm font-semibold mb-4">
-              <i class="fa-regular fa-clock text-gold-600 mr-2"></i>07:00 P.M. Onwards
-            </p>
+    <!-- Date & Time -->
+    <p class="text-stone-700 text-xs sm:text-sm font-semibold mb-1">
+      <i class="fa-regular fa-calendar text-gold-600 mr-2"></i>Monday, 23<sup>rd</sup> Nov. 2026
+    </p>
+    <p class="text-stone-700 text-xs sm:text-sm font-semibold mb-4">
+      <i class="fa-regular fa-clock text-gold-600 mr-2"></i>07:00 P.M. Onwards
+    </p>
 
-            <div class="bg-white/90 p-4 rounded-xl border border-stone-200 mb-5">
-              <p class="text-[10px] uppercase tracking-wider text-stone-500 font-bold mb-1">Where (Venue):</p>
-              <p class="text-sm font-bold text-royal-maroon">Vintage Court</p>
-              <p class="text-xs text-stone-700">Sec. 1, Chib Mohalla, Durga Nagar, Jammu</p>
-            </div>
-          </div>
+    <!-- Venue Box -->
+    <div class="bg-white/90 p-4 sm:p-5 rounded-2xl border border-stone-200 shadow-sm mb-5">
+      <p class="text-[10px] uppercase tracking-wider text-stone-500 font-bold mb-1.5 flex items-center gap-1.5">
+        <i class="fa-solid fa-location-dot text-gold-600"></i> Where (Venue)
+      </p>
+      <p class="text-base font-bold text-royal-maroon leading-snug">Vintage Court</p>
+      <p class="text-xs sm:text-[13px] text-stone-600 mt-0.5 leading-relaxed">
+        Sec. 1, Chib Mohalla, Durga Nagar, Jammu
+      </p>
+    </div>
+  </div>
 
-          <div class="pt-2 border-t border-gold-200">
-            <button onclick="addToCalendar('Mehandiraat & Dinner: Sahil & Aparna', '20261123T190000', '20261123T235900', 'Vintage Court, Sec. 1, Chib Mohalla, Durga Nagar, Jammu', 'Celebration of Mehandiraat and Dinner.')" class="w-full py-2.5 px-3 rounded-xl bg-gold-100 hover:bg-gold-200 text-gold-800 font-cinzel text-[11px] font-bold uppercase tracking-wider text-center transition-colors cursor-pointer">
-              <i class="fa-regular fa-calendar-plus mr-1"></i> Add Calendar
-            </button>
-          </div>
-        </div>
+  <!-- Action Button -->
+  <div class="pt-3 border-t border-gold-200">
+    <a 
+      href="https://maps.google.com/?q=Vintage+Court+Durga+Nagar+Jammu" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      class="w-full flex items-center justify-center py-2.5 px-4 rounded-xl border border-gold-400 bg-white/60 hover:bg-gold-500 hover:text-white text-stone-800 font-cinzel text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm"
+    >
+      <i class="fa-solid fa-location-arrow mr-2 text-gold-600 group-hover:text-white"></i> View Venue
+    </a>
+  </div>
+</div>
 
         <!-- 4. DEPARTURE OF BARAT -->
-        <div class="card-texture p-6 sm:p-8 rounded-3xl border-2 border-gold-500 shadow-2xl relative flex flex-col justify-between">
-          <div class="absolute -top-3.5 right-6 bg-gradient-to-r from-gold-600 to-amber-500 text-white text-[11px] font-cinzel uppercase tracking-widest px-4 py-1 rounded-full shadow">
-            The Wedding Day
-          </div>
+<div class="card-texture p-6 sm:p-8 rounded-3xl border-2 border-gold-500 shadow-2xl relative flex flex-col justify-between h-full">
+  <div class="absolute -top-3.5 right-6 bg-gradient-to-r from-gold-600 to-amber-500 text-white text-[11px] font-cinzel uppercase tracking-widest px-4 py-1 rounded-full shadow">
+    The Wedding Day
+  </div>
 
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-xs font-cinzel font-bold text-gold-700 tracking-widest uppercase">Ritual 04</span>
-              <span class="text-[11px] bg-red-100 text-red-800 px-3 py-1 rounded-full font-semibold">Morning</span>
-            </div>
+  <div>
+    <!-- Ritual Header -->
+    <div class="flex items-center justify-between mb-3">
+      <span class="text-xs font-cinzel font-bold text-gold-700 tracking-widest uppercase">Ritual 04</span>
+      <span class="text-[11px] bg-red-100 text-red-800 px-3 py-1 rounded-full font-semibold">Morning</span>
+    </div>
 
-            <h3 class="font-playfair text-2xl font-bold text-royal-maroon mb-2">
-              Departure of Barat
-            </h3>
+    <!-- Event Title -->
+    <h3 class="font-playfair text-2xl font-bold text-royal-maroon mb-2">
+      Departure of Barat
+    </h3>
 
-            <p class="text-stone-800 text-xs sm:text-sm font-semibold mb-1">
-              <i class="fa-regular fa-calendar text-gold-600 mr-2"></i>Wednesday, 25<sup>th</sup> Nov. 2026
-            </p>
-            <p class="text-stone-800 text-xs sm:text-sm font-semibold mb-4">
-              <i class="fa-regular fa-clock text-gold-600 mr-2"></i>09:00 A.M.
-            </p>
+    <!-- Date & Time -->
+    <p class="text-stone-800 text-xs sm:text-sm font-semibold mb-1">
+      <i class="fa-regular fa-calendar text-gold-600 mr-2"></i>Wednesday, 25<sup>th</sup> Nov. 2026
+    </p>
+    <p class="text-stone-800 text-xs sm:text-sm font-semibold mb-4">
+      <i class="fa-regular fa-clock text-gold-600 mr-2"></i>09:00 A.M.
+    </p>
 
-            <div class="space-y-2.5 mb-5">
-              <div class="bg-white p-3.5 rounded-xl border border-stone-200 flex items-start space-x-3 shadow-xs">
-                <div class="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-gold-700 flex-shrink-0 mt-0.5">
-                  <i class="fa-solid fa-house text-xs"></i>
-                </div>
-                <div>
-                  <span class="text-[10px] font-cinzel uppercase tracking-wider text-stone-500 font-bold block">
-                    Procession Assembles At
-                  </span>
-                  <p class="text-xs font-bold text-stone-900 leading-snug">
-                    H.No. 123, Sec. 6, Near Sai Baba Mandir
-                  </p>
-                  <p class="text-[11px] text-stone-600">Lower Roop Nagar, Jammu</p>
-                </div>
-              </div>
-
-              <div class="flex items-center justify-center space-x-2 py-0.5 text-gold-600">
-                <span class="h-[1px] w-12 bg-gold-300"></span>
-                <i class="fa-solid fa-arrow-down text-xs animate-bounce"></i>
-                <span class="text-[10px] font-cinzel font-semibold tracking-wider text-gold-700 uppercase">Procession Towards Venue</span>
-                <span class="h-[1px] w-12 bg-gold-300"></span>
-              </div>
-
-              <div class="bg-gradient-to-r from-gold-50/90 to-white p-3.5 rounded-xl border border-gold-400 flex items-start space-x-3 shadow-xs">
-                <div class="w-8 h-8 rounded-lg bg-royal-maroon text-white flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
-                  <i class="fa-solid fa-champagne-glasses text-xs"></i>
-                </div>
-                <div>
-                  <span class="text-[10px] font-cinzel uppercase tracking-wider text-gold-800 font-bold block">
-                    Grand Wedding Venue
-                  </span>
-                  <p class="text-xs font-bold text-royal-maroon leading-snug">
-                    Amaltaz Banquet
-                  </p>
-                  <p class="text-[11px] text-stone-700">Akhnoor Road, Muthi, Jammu</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pt-2 border-t border-gold-300">
-            <button onclick="addToCalendar('Departure of Barat: Sahil & Aparna', '20261125T090000', '20261125T160000', 'Amaltaz Banquet, Akhnoor Road, Muthi Jammu', 'Barat procession from H.No. 123 Lower Roop Nagar to Amaltaz Banquet.')" class="w-full py-2.5 px-3 rounded-xl bg-gold-600 text-white hover:bg-gold-700 font-cinzel text-[11px] font-bold uppercase tracking-wider text-center shadow transition-colors cursor-pointer">
-              <i class="fa-regular fa-calendar-plus mr-1"></i> Add Calendar
-            </button>
-          </div>
+    <!-- Route & Venue Section -->
+    <div class="space-y-3 mb-5">
+      <!-- Assembly Point -->
+      <div class="bg-white/90 p-3.5 sm:p-4 rounded-2xl border border-stone-200 flex items-start space-x-3 shadow-xs">
+        <div class="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-gold-700 shrink-0 mt-0.5">
+          <i class="fa-solid fa-house text-xs"></i>
         </div>
-
+        <div>
+          <span class="text-[10px] font-cinzel uppercase tracking-wider text-stone-500 font-bold block mb-0.5">
+            Procession Assembles At
+          </span>
+          <p class="text-sm font-bold text-stone-900 leading-snug">
+            H.No. 123, Sec. 6, Near Sai Baba Mandir
+          </p>
+          <p class="text-xs text-stone-600 mt-0.5">Lower Roop Nagar, Jammu</p>
+        </div>
       </div>
-    </section>
 
+      <!-- Route Transition -->
+      <div class="flex items-center justify-center space-x-2 py-0.5 text-gold-600">
+        <span class="h-[1px] w-12 bg-gold-300"></span>
+        <i class="fa-solid fa-arrow-down text-xs animate-bounce"></i>
+        <span class="text-[10px] font-cinzel font-semibold tracking-wider text-gold-700 uppercase">Procession Towards Venue</span>
+        <span class="h-[1px] w-12 bg-gold-300"></span>
+      </div>
+
+      <!-- Destination Venue -->
+      <div class="bg-gradient-to-r from-gold-50/90 to-white p-3.5 sm:p-4 rounded-2xl border border-gold-400 flex items-start space-x-3 shadow-xs">
+        <div class="w-8 h-8 rounded-lg bg-royal-maroon text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+          <i class="fa-solid fa-champagne-glasses text-xs"></i>
+        </div>
+        <div>
+          <span class="text-[10px] font-cinzel uppercase tracking-wider text-gold-800 font-bold block mb-0.5">
+            Grand Wedding Venue
+          </span>
+          <p class="text-sm font-bold text-royal-maroon leading-snug">
+            Amaltaz Banquet
+          </p>
+          <p class="text-xs text-stone-700 mt-0.5">Akhnoor Road, Muthi, Jammu</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Button (Full Width, Calendar Removed) -->
+  <div class="pt-3 border-t border-gold-300">
+    <a 
+      href="https://maps.google.com/?q=Amaltaz+Banquet+Akhnoor+Road+Muthi+Jammu" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      class="w-full flex items-center justify-center py-2.5 px-4 rounded-xl border border-gold-500 bg-white hover:bg-gold-500 hover:text-white text-stone-800 font-cinzel text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm"
+    >
+      <i class="fa-solid fa-location-dot text-gold-600 mr-2 group-hover:text-white"></i> View Venue
+    </a>
+  </div>
+</div>
     <!-- ==========================================
          CARD SECTION 4: RSVP DIRECTORY & BEST COMPLIMENTS
          ========================================== -->
@@ -694,6 +750,36 @@
         pauseWeddingMusic();
       }
     });
+
+/* ==========================================================
+       3. LIVE COUNTDOWN (Wedding Day: Wednesday, 25th Nov. 2026, 09:00 AM)
+       ========================================================= */
+    const targetWeddingDate = new Date("November 25, 2026 09:00:00").getTime();
+
+    function updateWeddingTimer() {
+      const now = new Date().getTime();
+      const distance = targetWeddingDate - now;
+
+      if (distance < 0) {
+        document.getElementById("countdownDays").innerText = "00";
+        document.getElementById("countdownHours").innerText = "00";
+        document.getElementById("countdownMins").innerText = "00";
+        document.getElementById("countdownSecs").innerText = "00";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdownDays").innerText = String(days).padStart(2, '0');
+      document.getElementById("countdownHours").innerText = String(hours).padStart(2, '0');
+      document.getElementById("countdownMins").innerText = String(minutes).padStart(2, '0');
+      document.getElementById("countdownSecs").innerText = String(seconds).padStart(2, '0');
+    }
+    setInterval(updateWeddingTimer, 1000);
+    updateWeddingTimer();
 
     /* ==========================================================
        3. AMBIENT FLOATING HEARTS & SHIMMER CANVAS ANIMATION
