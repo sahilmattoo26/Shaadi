@@ -609,37 +609,13 @@
                   <p class="text-xs text-stone-600 mt-0.5">Lower Roop Nagar, Jammu</p>
                 </div>
               </div>
-
-              <!-- Route Transition -->
-              <div class="flex items-center justify-center space-x-2 py-0.5 text-gold-600">
-                <span class="h-[1px] w-12 bg-gold-300"></span>
-                <i class="fa-solid fa-arrow-down text-xs animate-bounce"></i>
-                <span class="text-[10px] font-cinzel font-semibold tracking-wider text-gold-700 uppercase">Procession Towards Venue</span>
-                <span class="h-[1px] w-12 bg-gold-300"></span>
-              </div>
-
-              <!-- Destination Venue -->
-              <div class="bg-gradient-to-r from-gold-50/90 to-white p-3.5 sm:p-4 rounded-2xl border border-gold-400 flex items-start space-x-3 shadow-xs">
-                <div class="w-8 h-8 rounded-lg bg-royal-maroon text-white flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
-                  <i class="fa-solid fa-champagne-glasses text-xs"></i>
-                </div>
-                <div>
-                  <span class="text-[10px] font-cinzel uppercase tracking-wider text-gold-800 font-bold block mb-0.5">
-                    Grand Wedding Venue
-                  </span>
-                  <p class="text-sm font-bold text-royal-maroon leading-snug">
-                    Amaltaz Banquet
-                  </p>
-                  <p class="text-xs text-stone-700 mt-0.5">Akhnoor Road, Muthi, Jammu</p>
-                </div>
-              </div>
             </div>
           </div>
 
-          <!-- Action Button (Full Width, Calendar Removed) -->
+          <!-- Action Button (Directly points to Procession Assembles At Maps Location) -->
           <div class="pt-3 border-t border-gold-300">
             <a 
-              href="https://maps.google.com/?q=Amaltaz+Banquet+Akhnoor+Road+Muthi+Jammu" 
+              href="https://maps.app.goo.gl/K9dCjNZnEUhk3ubE8" 
               target="_blank" 
               rel="noopener noreferrer" 
               class="w-full flex items-center justify-center py-2.5 px-4 rounded-xl border border-gold-500 bg-white hover:bg-gold-500 hover:text-white text-stone-800 font-cinzel text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm"
@@ -726,14 +702,13 @@
         envelopeOverlay.classList.add('opacity-0');
         setTimeout(() => {
           envelopeOverlay.style.display = 'none';
-          // Start buttery smooth auto-scroll once envelope closes
           startAutoScroll();
         }, 900);
       }, 600);
     });
 
     /* ==========================================================
-       2. CUSTOM WEDDING SONG CONTROLLER & AUDIO FADE OUT
+       2. CUSTOM WEDDING SONG CONTROLLER & AUDIO FADE
        ========================================================= */
     const audioToggleBtn = document.getElementById('audioToggleBtn');
     const audioIcon = document.getElementById('audioIcon');
@@ -750,9 +725,9 @@
         } else {
           clearInterval(fadeInterval);
           pauseWeddingMusic();
-          weddingAudio.volume = 1.0; // Reset volume for subsequent plays
+          weddingAudio.volume = 1.0;
         }
-      }, 70);
+      }, 50);
     }
 
     function playWeddingMusic() {
@@ -781,34 +756,69 @@
     });
 
     /* ==========================================================
-       3. SMOOTH AUTO-SCROLL WITH FADE-OUT AT BOTTOM
+       3. FLICKER-FREE SMOOTH AUTO-SCROLL (MOBILE OPTIMIZED)
        ========================================================= */
     let isAutoScrolling = false;
     let scrollAnimationId = null;
-    const scrollSpeed = 5.0; // Speed: 0.6 = slower, 1.2 = faster
+    let currentScrollPos = 0;
+    const pixelsPerSecond = 100; // Smooth 3.0px speed equivalent at 60fps
+    let lastTimestamp = 0;
+    let ignoreUserInteractionsUntil = 0;
+    const FADE_DISTANCE_PX = 550; // Distance from the bottom where music gently starts fading
 
     const toggleBtn = document.getElementById('scroll-toggle-btn');
     const toggleIcon = document.getElementById('scroll-toggle-icon');
     const toggleText = document.getElementById('scroll-toggle-text');
 
-    function scrollStep() {
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      
-      // Reached the end of the page
-      if (window.scrollY >= maxScroll - 3) {
+    function scrollStep(timestamp) {
+      if (!isAutoScrolling) return;
+
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const deltaTime = Math.min((timestamp - lastTimestamp) / 1000, 0.05); // Guard against tab background throttling
+      lastTimestamp = timestamp;
+
+      const maxScroll = Math.max(
+        document.body.scrollHeight, 
+        document.documentElement.scrollHeight
+      ) - window.innerHeight;
+
+      currentScrollPos += pixelsPerSecond * deltaTime;
+
+      // Audio fades away proportionally as it nears the end
+      if (weddingAudio && !weddingAudio.paused) {
+        const remainingDistance = maxScroll - currentScrollPos;
+        if (remainingDistance <= FADE_DISTANCE_PX) {
+          const fadeRatio = Math.max(0, remainingDistance / FADE_DISTANCE_PX);
+          weddingAudio.volume = Math.min(1.0, Math.max(0, fadeRatio));
+        }
+      }
+
+      // Check if scroll reached end
+      if (currentScrollPos >= maxScroll - 1) {
+        window.scrollTo(0, maxScroll);
         stopAutoScroll();
         if (toggleBtn) toggleBtn.classList.add('hidden');
-        stopMusicWithFade(); // Gently turn off wedding audio
+        pauseWeddingMusic();
+        weddingAudio.volume = 1.0;
         return;
       }
 
-      window.scrollBy(0, scrollSpeed);
+      // Math.round eliminates sub-pixel rendering micro-jitters on mobile screens
+      window.scrollTo(0, Math.round(currentScrollPos));
       scrollAnimationId = requestAnimationFrame(scrollStep);
     }
 
     function startAutoScroll() {
       if (isAutoScrolling) return;
       isAutoScrolling = true;
+      lastTimestamp = 0;
+
+      // Disable CSS smooth scroll to prevent mobile browser internal scroll conflicts
+      document.documentElement.style.scrollBehavior = 'auto';
+      currentScrollPos = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+      // Prevent accidental touch events right after button press from aborting scroll
+      ignoreUserInteractionsUntil = Date.now() + 600;
 
       if (toggleBtn) {
         toggleBtn.classList.remove('hidden');
@@ -822,6 +832,7 @@
 
     function stopAutoScroll() {
       isAutoScrolling = false;
+      document.documentElement.style.scrollBehavior = '';
       if (scrollAnimationId) {
         cancelAnimationFrame(scrollAnimationId);
         scrollAnimationId = null;
@@ -832,7 +843,8 @@
       }
     }
 
-    toggleBtn?.addEventListener('click', () => {
+    toggleBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
       if (isAutoScrolling) {
         stopAutoScroll();
       } else {
@@ -840,10 +852,12 @@
       }
     });
 
-    // Pause scroll automatically if the guest manually scrolls or touches
+    // Pause scroll only on deliberate user touch or scroll
     ['wheel', 'touchmove', 'keydown'].forEach(evt => {
       window.addEventListener(evt, () => {
-        if (isAutoScrolling) stopAutoScroll();
+        if (isAutoScrolling && Date.now() > ignoreUserInteractionsUntil) {
+          stopAutoScroll();
+        }
       }, { passive: true });
     });
 
